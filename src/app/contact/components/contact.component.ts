@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Contact } from '../models/contact';
+import { Contact } from '../../models/contact';
 
 @Component({
   selector: 'app-contact',
-  template: ` <p>{{ contact.firstName }}</p> `,
+  template: `<app-contact-list [contacts]="contacts"></app-contact-list>`,
   styles: [],
 })
 export class ContactComponent implements OnInit {
-  @Input() contact!: Contact;
+  @Input() contacts!: Contact[];
 
   constructor() {}
 
