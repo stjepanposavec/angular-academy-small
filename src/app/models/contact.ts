@@ -9,7 +9,7 @@ export interface Contact {
 export const INITIAL_CONTACT: Contact[] = [
   {
     firstName: 'test',
-    lastName: 'test',
+    lastName: 'ptest',
     imageUrl: 'test',
     dateOfBirth: 'test',
     email: 'test',
