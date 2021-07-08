@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Contact, INITIAL_CONTACT } from './models/contact';
+import { Contact, INITIAL_CONTACT } from './contact/models/contact';
 
 @Component({
   selector: 'app-root',
-  template: `<app-contact-list [contacts]="contacts"></app-contact-list>`,
+  template: ` <app-contact-list [contacts]="contacts"></app-contact-list>`,
   styles: [],
 })
 export class AppComponent {

@@ -1,18 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Contact } from 'src/app/models/contact';
+import { Contact } from 'src/app/contact/models/contact';
 
 @Component({
   selector: 'app-search',
   template: `
     <input
+      class="search-input"
       type="text"
-      placeholder="Search..."
+      placeholder="Search for the Customer"
       [formControl]="search"
       (ngModelChange)="filterItem()"
     />
   `,
-  styles: [],
+  styleUrls: ['../styles/search.component.css'],
 })
 export class SearchComponent implements OnInit {
   @Input() contacts!: Contact[];
