@@ -3,11 +3,17 @@ import { Contact } from '../../models/contact';
 
 @Component({
   selector: 'app-contact',
-  template: `<app-contact-list [contacts]="contacts"></app-contact-list>`,
+  template: ` <ul>
+    <li *ngFor="let contact of filteredItems">
+      {{ contact.firstName }}
+      {{ contact.lastName }}
+      <a [href]="'mailto:' + contact.email">Send mail</a>
+    </li>
+  </ul>`,
   styles: [],
 })
 export class ContactComponent implements OnInit {
-  @Input() contacts!: Contact[];
+  @Input() filteredItems!: Contact[];
 
   constructor() {}
 
