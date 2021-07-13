@@ -3,32 +3,33 @@ import { Contact } from '../models/contact';
 
 @Component({
   selector: 'app-contact',
-  template: ` <ul class="contact-list">
-    <li class="contact" *ngFor="let contact of filteredItems">
-      <div class="contact-info-container">
-        <img
-          class="contact-user-img"
-          [src]="contact.imageUrl"
-          alt="user-photo"
-        />
-        <div class="contact-info">
-          <span class="contact-info-name"
-            >{{ contact.firstName }} {{ contact.lastName }}</span
-          >
-          <span class="contact-info-dob">{{ contact.dateOfBirth }}</span>
-        </div>
+  template: `
+    <li class="contact">
+      <img class="contact__image" [src]="contact.imageUrl" alt="user-photo" />
+      <div class="contact__info">
+        <span class="contact__info__name"
+          >{{ contact.firstName }} {{ contact.lastName }}</span
+        >
+        <span class="contact__info__dob">{{
+          formatDate(contact.dateOfBirth)
+        }}</span>
       </div>
-      <a class="contact-btn-send-email" [href]="'mailto:' + contact.email"
+      <a class="contact__button" [href]="'mailto:' + contact.email"
         >Send email</a
       >
     </li>
-  </ul>`,
+  `,
   styleUrls: ['../styles/contact.component.css'],
 })
 export class ContactComponent implements OnInit {
-  @Input() filteredItems!: Contact[];
+  @Input() contact!: Contact;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  formatDate(milis: number): string {
+    const date = new Date(milis);
+    return date.toLocaleDateString();
+  }
 }

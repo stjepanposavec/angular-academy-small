@@ -6,42 +6,25 @@ import { Contact } from 'src/app/contact/models/contact';
   selector: 'app-search',
   template: `
     <input
-      class="search-input"
+      class="search"
       type="text"
       placeholder="Search for the Customer"
       [formControl]="search"
-      (ngModelChange)="filterItem()"
+      (ngModelChange)="sendValue()"
     />
   `,
   styleUrls: ['../styles/search.component.css'],
 })
 export class SearchComponent implements OnInit {
-  @Input() contacts!: Contact[];
-  @Output() filterContacts = new EventEmitter<Contact[]>();
-  filteredItems: Contact[] = [];
+  @Output() query = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder) {}
 
   search = this.fb.control('');
 
-  ngOnInit(): void {
-    this.filterItem();
-  }
+  ngOnInit(): void {}
 
-  filterItem() {
-    if (!this.search) {
-      this.filteredItems = this.contacts;
-    } else {
-      this.filteredItems = this.contacts.filter(
-        (item) =>
-          (
-            item.firstName.toLowerCase() +
-            ' ' +
-            item.lastName.toLowerCase()
-          ).indexOf(this.search.value.toLowerCase()) > -1,
-      );
-    }
-
-    this.filterContacts.emit(this.filteredItems);
+  sendValue() {
+    this.query.emit(this.search.value);
   }
 }

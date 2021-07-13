@@ -4,12 +4,15 @@ import { Contact } from 'src/app/contact/models/contact';
 
 @Component({
   selector: 'app-contact-list',
-  template: `<div class="contact-list-container">
-    <app-search
-      [contacts]="contacts"
-      (filterContacts)="updateContactsList($event)"
-    ></app-search>
-    <app-contact [filteredItems]="filteredItems"></app-contact>
+  template: `<div class="contact-list">
+    <app-search (query)="updateSearch($event)"></app-search>
+    <ul class="contact-list__contacts">
+      <app-contact
+        class="contact-list__contacts__item"
+        *ngFor="let contact of filteredItems"
+        [contact]="contact"
+      ></app-contact>
+    </ul>
   </div>`,
   styleUrls: ['../../styles/contact-list.component.css'],
 })
@@ -19,11 +22,26 @@ export class ContactListComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {}
 
-  search = this.fb.control('');
+  ngOnInit(): void {
+    this.filterItem('');
+  }
 
-  ngOnInit(): void {}
+  updateSearch(query: string): void {
+    this.filterItem(query);
+  }
 
-  updateContactsList(contacts: Contact[]): void {
-    this.filteredItems = contacts;
+  filterItem(search: string) {
+    if (!search) {
+      this.filteredItems = this.contacts;
+    } else {
+      this.filteredItems = this.contacts.filter(
+        (item) =>
+          (
+            item.firstName.toLowerCase() +
+            ' ' +
+            item.lastName.toLowerCase()
+          ).indexOf(search.toLowerCase()) > -1,
+      );
+    }
   }
 }
