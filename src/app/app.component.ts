@@ -3,9 +3,8 @@ import { Contact, INITIAL_CONTACT } from './contact/models/contact';
 
 @Component({
   selector: 'app-root',
-  template: ` <app-contact-list [contacts]="contacts"></app-contact-list>`,
+  template: ` <app-header></app-header>
+    <router-outlet></router-outlet>`,
   styles: [],
 })
-export class AppComponent {
-  contacts: Contact[] = INITIAL_CONTACT;
-}
+export class AppComponent {}

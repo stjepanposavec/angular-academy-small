@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Contact } from 'src/app/contact/models/contact';
+import { Contact, INITIAL_CONTACT } from 'src/app/contact/models/contact';
 
 @Component({
   selector: 'app-contact-list',
@@ -17,7 +17,7 @@ import { Contact } from 'src/app/contact/models/contact';
   styleUrls: ['../../styles/contact-list.component.css'],
 })
 export class ContactListComponent implements OnInit {
-  @Input() contacts!: Contact[];
+  contacts: Contact[] = INITIAL_CONTACT;
   filteredItems: Contact[] = [];
 
   constructor(private fb: FormBuilder) {}

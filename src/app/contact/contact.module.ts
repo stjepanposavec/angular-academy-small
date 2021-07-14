@@ -8,6 +8,5 @@ import { ContactListComponent } from './views/contact-list/contact-list.componen
 @NgModule({
   declarations: [SearchComponent, ContactComponent, ContactListComponent],
   imports: [CommonModule, ReactiveFormsModule],
-  exports: [ContactListComponent],
 })
 export class ContactModule {}
