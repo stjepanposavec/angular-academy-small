@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Contact } from 'src/app/contact/models/contact';
+import { Component, Input, OnInit } from '@angular/core'
+import { FormControl } from '@angular/forms'
 
 @Component({
   selector: 'app-search',
@@ -10,21 +9,21 @@ import { Contact } from 'src/app/contact/models/contact';
       type="text"
       placeholder="Search for the Customer"
       [formControl]="search"
-      (ngModelChange)="sendValue()"
     />
   `,
-  styleUrls: ['../styles/search.component.css'],
+  styleUrls: ['../styles/search.component.css']
 })
 export class SearchComponent implements OnInit {
-  @Output() query = new EventEmitter<string>();
+  @Input()
+  search!: FormControl
 
-  constructor(private fb: FormBuilder) {}
+  constructor () {}
 
-  search = this.fb.control('');
+  // search = this.fb.control('');
 
-  ngOnInit(): void {}
+  ngOnInit (): void {}
 
-  sendValue() {
-    this.query.emit(this.search.value);
-  }
+  // sendValue () {
+  //   this.query.emit(this.search.value)
+  // }
 }
