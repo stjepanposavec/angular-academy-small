@@ -1,0 +1,23 @@
+.navigation {
+    display: flex;
+    padding: 16px;
+    width: 25%;
+    justify-content: space-around;
+}
+
+.navigation__item {
+    padding: 8px 28px 8px 28px;
+    max-width: 300px;
+    align-self: center;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.navigation__item:hover {
+    background-color: #1f1f1fc5;
+}

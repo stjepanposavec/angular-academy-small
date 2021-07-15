@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-navigation',
   template: `
-    <nav>
-      <a routerLink="/home">Home</a>
-      <a routerLink="/contacts">Contacts</a>
+    <nav class="navigation">
+      <a class="navigation__item" routerLink="/home">Home</a>
+      <a class="navigation__item" routerLink="/contacts">Contacts</a>
     </nav>
   `,
-  styles: [],
+  styleUrls: ['../styles/navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
   constructor() {}
