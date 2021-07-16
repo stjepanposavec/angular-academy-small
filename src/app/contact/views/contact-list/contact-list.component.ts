@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder } from '@angular/forms'
-import { Observable, of } from 'rxjs'
-import { Contact, INITIAL_CONTACT } from 'src/app/contact/models/contact'
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { Contact, INITIAL_CONTACT } from 'src/app/contact/models/contact';
 
 @Component({
   selector: 'app-contact-list',
@@ -14,27 +15,27 @@ import { Contact, INITIAL_CONTACT } from 'src/app/contact/models/contact'
               contacts$ observable -->
         <app-contact
           class="contact-list__contacts__item"
-          *ngFor="let contact of contacts$ | async"
+          *ngFor="let contact of searchResults$ | async"
           [contact]="contact"
         ></app-contact>
       </ul>
     </div>
   `,
-  styleUrls: ['../../styles/contact-list.component.css']
+  styleUrls: ['../../styles/contact-list.component.css'],
 })
 export class ContactListComponent implements OnInit {
-  constructor (private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
-  contacts: Contact[] = INITIAL_CONTACT
+  contacts: Contact[] = INITIAL_CONTACT;
 
-  search = this.fb.control('')
+  search = this.fb.control('');
 
-  search$ = this.search.valueChanges
+  search$ = this.search.valueChanges;
   /**
    * We will use RxJS of() function to
    * return array of mock contacts as observable
    */
-  contacts$ = of(this.contacts)
+  contacts$ = of(this.contacts);
 
   /**
    * TODO:
@@ -46,7 +47,23 @@ export class ContactListComponent implements OnInit {
    * https://www.learnrxjs.io/learn-rxjs/operators/combination
    */
 
-  //searchResults$:Observable<Contact> = Do the RxJS thing :)
+  searchResults$: Observable<Contact[]> = this.search$.pipe(
+    switchMap((query) => {
+      return this.contacts$.pipe(
+        map((res) => {
+          return res.filter((item) => {
+            return (
+              (
+                item.firstName.toLowerCase() +
+                ' ' +
+                item.lastName.toLowerCase()
+              ).indexOf(query) > -1
+            );
+          });
+        }),
+      );
+    }),
+  );
 
-  ngOnInit () {}
+  ngOnInit() {}
 }
