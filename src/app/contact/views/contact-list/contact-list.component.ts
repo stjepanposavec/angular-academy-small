@@ -48,21 +48,20 @@ export class ContactListComponent implements OnInit {
    */
 
   searchResults$: Observable<Contact[]> = this.search$.pipe(
-    switchMap((query) => {
-      return this.contacts$.pipe(
-        map((res) => {
-          return res.filter((item) => {
-            return (
+    switchMap((query) =>
+      this.contacts$.pipe(
+        map((res) =>
+          res.filter(
+            (item) =>
               (
                 item.firstName.toLowerCase() +
                 ' ' +
                 item.lastName.toLowerCase()
-              ).indexOf(query) > -1
-            );
-          });
-        }),
-      );
-    }),
+              ).indexOf(query) > -1,
+          ),
+        ),
+      ),
+    ),
   );
 
   ngOnInit() {}
